@@ -1,19 +1,29 @@
 import React, { Component } from 'react'
 
+const getStateFormLocalStorage = () => {
+    const storage = localStorage.getItem('counterState')
+    if (storage) return JSON.parse(storage)
+    return { count: 0 }
+}
+
+const storeStateInLocalStorage = (state) => {
+    localStorage.setItem('counterState', JSON.stringify(state))
+    console.log(localStorage)
+}
+
 class Counter extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            count: 3
-        }
+        this.state = getStateFormLocalStorage()
     }
 
     increment = () => {
         this.setState((state, props) => {
             const { max, step } = props
-            if (this.state.count >= max) return;
+            if (this.state.count >= max) return
             return { count: this.state.count + step}
-        })
+        }, () => storeStateInLocalStorage(this.state))
+        console.log('Before', this.state)
     }
 
     decrement = () => {
