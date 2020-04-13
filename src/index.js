@@ -1,15 +1,19 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Counter from './Counter'
+import ClassCounter from './ClassCounter'
+import HookCounter from './HookCounter'
 
 import './styles.scss'
 
 const Application = () => {
   return (
     <main className="Application">
-      <section className="Counters">
-        <Counter max={15} step={5}/>
+      <section className="counter">
+        <ClassCounter max={15} step={5}/>
+      </section>
+      <section className="counter">
+        <HookCounter max={15} step={5}/>
       </section>
     </main>
   )

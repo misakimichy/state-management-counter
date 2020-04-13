@@ -11,7 +11,7 @@ const storeStateInLocalStorage = (state) => {
     console.log(localStorage)
 }
 
-class Counter extends Component {
+class ClassCounter extends Component {
     constructor(props) {
         super(props)
         this.state = getStateFormLocalStorage()
@@ -42,6 +42,7 @@ class Counter extends Component {
         const { count } = this.state
         return (
             <div className="Counter">
+                <h1 style={{textAlign: 'center'}}>Class Counter</h1>
                 <p className="count">{count}</p>
                 <section className="controls">
                     <button onClick={this.increment}>Increment</button>
@@ -53,4 +54,4 @@ class Counter extends Component {
     }
 }
 
-export default Counter
+export default ClassCounter
