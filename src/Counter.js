@@ -17,21 +17,25 @@ class Counter extends Component {
         this.state = getStateFormLocalStorage()
     }
 
+    updateDocumentTitle = () => {
+        document.title = `Count: ${this.state.count}`;
+    }
+
     increment = () => {
         this.setState((state, props) => {
             const { max, step } = props
             if (this.state.count >= max) return
             return { count: this.state.count + step}
-        }, () => storeStateInLocalStorage(this.state))
+        }, this.updateDocumentTitle)
         console.log('Before', this.state)
     }
 
     decrement = () => {
-        this.setState({ count: this.state.count - 1})
+        this.setState({ count: this.state.count - 1}, this.updateDocumentTitle)
     }
 
     reset = () => {
-        this.setState({ count: 0 })
+        this.setState({ count: 0 }, this.updateDocumentTitle)
     }
 
     render() {
