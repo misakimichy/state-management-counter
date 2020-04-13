@@ -1,20 +1,11 @@
 import React, { Component } from 'react'
 
-const getStateFormLocalStorage = () => {
-    const storage = localStorage.getItem('counterState')
-    if (storage) return JSON.parse(storage)
-    return { count: 0 }
-}
-
-const storeStateInLocalStorage = (state) => {
-    localStorage.setItem('counterState', JSON.stringify(state))
-    console.log(localStorage)
-}
-
 class ClassCounter extends Component {
     constructor(props) {
         super(props)
-        this.state = getStateFormLocalStorage()
+        this.state = {
+            count: 0
+        } 
     }
 
     updateDocumentTitle = () => {
@@ -22,20 +13,27 @@ class ClassCounter extends Component {
     }
 
     increment = () => {
-        this.setState((state, props) => {
-            const { max, step } = props
-            if (this.state.count >= max) return
-            return { count: this.state.count + step}
-        }, this.updateDocumentTitle)
-        console.log('Before', this.state)
+        this.setState(({ count }) => ({
+            count: count + 1
+        }))
     }
 
     decrement = () => {
-        this.setState({ count: this.state.count - 1}, this.updateDocumentTitle)
+        this.setState(({ count }) => ({
+            count: count - 1,
+        }))
     }
 
     reset = () => {
-        this.setState({ count: 0 }, this.updateDocumentTitle)
+        this.setState(() => ({
+            count: 0
+        }))
+    }
+
+    componentDidUpdate() {
+        setTimeout(() => {
+            console.log(`Count: ${this.state.count}`)
+        }, 3000)
     }
 
     render() {
